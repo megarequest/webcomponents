@@ -147,7 +147,8 @@ window.basket = defineStore((reactive) => {
 
 })
 
-defineComponent('wishlist-header-informer', ({reactive, computed, html}) => {
+defineComponent('wishlist-header-informer', ({reactive, computed, html, dataset, getClass}) => {
+
 
     const data = reactive({count:0});
     data.value.count = wishlist.getCount()

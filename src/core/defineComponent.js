@@ -58,13 +58,23 @@ export default function(componentName = '', componentInit = () => {}){
         };
     };
 
-    const template = componentInit({
-        reactive,
-        computed,
-        html
-    })
+
 
     customElements.define(componentName, class extends HTMLElement {
+
+        static template;
+
+        constructor(){
+            super();
+            this.template = componentInit({
+                getClass: () => this,
+                dataset:this.dataset,
+                reactive,
+                computed,
+                html,
+            });
+        }
+        
         connectedCallback() {
             setTimeout(() => {
                 this.innerHTML = '';
@@ -72,8 +82,9 @@ export default function(componentName = '', componentInit = () => {}){
                 subscribers.add(() => this.update())
             }, 1)
         }
+
         update(){
-            render(this, template);
+            render(this, this.template);
         }
     });
     
