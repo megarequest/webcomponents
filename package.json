@@ -4,6 +4,7 @@
     "start": "webpack serve"
   },
   "dependencies": {
+    "preact": "^10.25.4",
     "uhtml": "^4.7.0"
   },
   "devDependencies": {
