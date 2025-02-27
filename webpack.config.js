@@ -1,7 +1,7 @@
 const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
-const isProd = true;
+const isProd = false;
 let config = null;
 
 if(isProd){

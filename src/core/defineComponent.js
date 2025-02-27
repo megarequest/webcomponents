@@ -1,10 +1,12 @@
-import { effect, signal, computed  } from '@preact/signals-core';
-import { reactive, html} from 'uhtml/reactive';
+import { effect, signal, computed } from '@preact/signals-core';
+import { reactive, html } from 'uhtml/reactive';
 
-export default function(componentName = '', componentInit = () => {}){
+export default function(componentName = '', componentInit = () => {}) {
     customElements.define(componentName, class extends HTMLElement {
         static template;
-        constructor(){
+        static datasetSignals;
+
+        constructor() {
             super();
             this.template = componentInit({
                 getClass: () => this,
@@ -14,16 +16,28 @@ export default function(componentName = '', componentInit = () => {}){
                 effect,
                 html,
             });
+            this._cleanupEffects = [];
         }
+
         connectedCallback() {
             setTimeout(() => {
                 this.innerHTML = '';
                 this.makeRender();
-            }, 1)
+            }, 1);
         }
-        makeRender(){
+
+        disconnectedCallback() {
+            this._cleanupEffects.forEach(cleanup => cleanup());
+            this._cleanupEffects = [];
+        }
+
+        makeRender() {
             const render = reactive(effect);
-            render(this, this.template);
+            const cleanup = render(this, this.template);
+            if (cleanup) {
+                this._cleanupEffects.push(cleanup);
+            }
         }
+
     });
 }
