@@ -1,0 +1,41 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    line-height: 1.2;
+    font-family: "Segoe UI";
+}
+
+h1,h2,h3{
+    margin: 0;
+    margin-bottom: 1rem;
+}
+
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+.container{
+    max-width: 800px;
+    margin: 0 auto;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
+}
+
+.btn{
+    display: inline-flex;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid wheat;
+    padding: 9px;
+    background: transparent;
+}

@@ -6,9 +6,8 @@ export default function(componentName = '', componentInit = () => {}) {
     customElements.define(componentName, class extends HTMLElement {
         static innerHTMLRaw;
         static template;
+        static onRender;
 
-
-        
         constructor() {
             super();
             const self = this;
@@ -16,6 +15,7 @@ export default function(componentName = '', componentInit = () => {}) {
             this._cleanupEffects = [];
             this._datasetSignals = {};
             this.template = componentInit({
+                onRender: f => this.onRender = f,
                 useStore,
                 computed,
                 signal,
@@ -47,16 +47,15 @@ export default function(componentName = '', componentInit = () => {}) {
             this._cleanupEffects = [];
         }
 
+
         makeRender() {
             const render = reactive(effect);
-
             const cleanup = render(this, this.template);
-            if(cleanup.querySelector('slot')){
-                cleanup.querySelector('slot').outerHTML = this.innerHTMLRaw;
-            }
-            if (cleanup) {
-                this._cleanupEffects.push(cleanup);
-            }
+            const slot = cleanup?.querySelector('slot');
+            if(slot) slot.outerHTML = this.innerHTMLRaw;
+            if(this.onRender) this.onRender(this)
+            if (cleanup) this._cleanupEffects.push(cleanup);
+
         }
 
     });
