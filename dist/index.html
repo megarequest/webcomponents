@@ -3,14 +3,151 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>µHTML + Webpack</title>
+  <title>Complement</title>
 </head>
 <body>
+
+
+
+    <drop-input>
+        <drop-trigger>
+            <span>Кнопка</span>
+        </drop-trigger>
+        <drop-container>
+            <drop-filter></drop-filter>
+            <drop-content>
+                <drop-item value="1">
+                    <span>Вариант 1</span>
+                </drop-item>
+                <drop-item value="2">
+                    <span>Вариант 2</span>
+                </drop-item>
+                <drop-item value="3">
+                    <span>Вариант 3</span>
+                </drop-item>
+            </drop-content>
+        </drop-container>
+    </drop-input>
+
     <script src="bundle.js"></script>
     <script src="script.js"></script>
 
 
-  <example-component data-test="Y"></example-component>
+    <style>
+        drop-input {
+            position: relative;
+            z-index: 1;
+            line-height: 1;
+        }
+        drop-input .drop-icon {
+            width: 12px;
+            height: 12px;
+            position: absolute;
+            top: 50%;
+            right: 1rem;
+            transform: translateY(-50%);
+            transform-origin: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        drop-input drop-trigger {
+            cursor: pointer;
+            margin-bottom: 0;
+        }
+        drop-input drop-container {
+            opacity: 0;
+            visibility: hidden;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            padding-top: 10px;
+            box-sizing: border-box;
+        }
+        drop-input drop-container::before {
+            content: "";
+            position: absolute;
+            left: 2em;
+            top: 0;
+            width: 0;
+            height: 0;
+            border-left: 9px solid transparent;
+            border-right: 9px solid transparent;
+            border-bottom: 10px solid #fff;
+        }
+        drop-input drop-content {
+            min-width: 100%;
+            background: #fff;
+            padding: 15px;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            box-sizing: border-box;
+            max-height: 350px;
+            overflow: auto;
+            background: wheat;
+            width: max-content;
+            display: block;
+        }
+
+        drop-input drop-content drop-item{
+            display: block;
+            margin-bottom: 10px;
+            width: max-content;
+        }
+
+
+        drop-input drop-content drop-item:last-child{
+            margin-bottom: 0;
+        }
+
+        drop-input drop-submit {
+            position: fixed;
+            top: calc(100% + 50px);
+            right: 10px;
+            left: 10px;
+            display: none;
+            --padding: 12px;
+            --font-size: 14px;
+        }
+        drop-input drop-item {
+            display: flex;
+            position: relative;
+            cursor: pointer;
+            padding: 12px 15px 12px;
+            color: #000;
+            text-decoration: none;
+            line-height: 1em;
+        }
+        drop-input drop-item:hover {
+            background: var(--color-smoke, whitesmoke);
+        }
+        drop-input drop-item.checkbox input,
+        drop-input drop-item.radio input {
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        drop-input.--open drop-container {
+            opacity: 1;
+            visibility: visible;
+        }
+        drop-input.--open drop-icon {
+            transform: translateY(-50%) rotate(180deg);
+        }
+        drop-input.-full drop-submit {
+            display: flex;
+        }
+        drop-input.-full drop-container {
+            padding-bottom: 60px;
+        }
+        drop-input.-full drop-submit {
+            display: flex;
+        }
+        drop-input.-full drop-container {
+            padding-bottom: 60px;
+        }
+    </style>
+
+
 
 </body>
 </html>

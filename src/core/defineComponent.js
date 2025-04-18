@@ -1,27 +1,33 @@
 import { effect, signal, computed } from '@preact/signals-core';
 import { reactive, html } from 'uhtml/reactive';
+import { useStore } from './defineStore';
 
 export default function(componentName = '', componentInit = () => {}) {
     customElements.define(componentName, class extends HTMLElement {
+        static innerHTMLRaw;
         static template;
+
+
         
         constructor() {
             super();
+            const self = this;
             this._dataset = signal({});
             this._cleanupEffects = [];
             this._datasetSignals = {};
             this.template = componentInit({
-                getClass: () => this,
-                dataset: () => this._dataset.value,
+                useStore,
                 computed,
                 signal,
                 effect,
                 html,
+                self,
             });
         }
 
         connectedCallback() {
             setTimeout(() => {
+                this.innerHTMLRaw = this.innerHTML;
                 this.innerHTML = '';
                 this.makeRender();
             }, 1);
@@ -43,7 +49,11 @@ export default function(componentName = '', componentInit = () => {}) {
 
         makeRender() {
             const render = reactive(effect);
+
             const cleanup = render(this, this.template);
+            if(cleanup.querySelector('slot')){
+                cleanup.querySelector('slot').outerHTML = this.innerHTMLRaw;
+            }
             if (cleanup) {
                 this._cleanupEffects.push(cleanup);
             }

@@ -4,3 +4,5 @@ import defineComponent from './core/defineComponent';
 window.defineStore = defineStore;
 window.defineComponent = defineComponent;
 
+require('./components/drop');
+

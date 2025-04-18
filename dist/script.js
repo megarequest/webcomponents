@@ -1,56 +1,87 @@
-const store = defineStore(({signal, computed, effect}) => {
+const usersStore = defineStore('users', ({signal, computed, effect}) => {
 
-    const result = signal({ age:10 });
-    const count = computed(() => result.value.age + 3);
-    const setAge = n => result.value = { ...result.value, age: n };
-    effect(() => console.log(count.value));
+    const data = signal([{ 
+        name:'Иван',
+        birth:'10.01.2000' 
+    }]);
+
+    const users = computed(() => {
+        let userData = JSON.parse(JSON.stringify(data?.value));
+        return userData.map(user => {
+            let birth = new Date(user.birth);
+            user.age = (new Date()).getFullYear() - birth.getFullYear();
+            return user;
+        });
+    });
+
+    const count = computed(() => users.value.length)
+
+    const addUser = (
+        name = 'Имя', 
+        birth = '01.01.2000'
+    ) => {
+        data.value = [...data.value, {name, birth}]
+    };
+  
+    effect(() => {
+        console.log('Изменилась инфа', users.value)
+    });
   
     return {
+        users,
         count,
-        result,
-        setAge
+        addUser,
     };
 })
 
-defineComponent('example-component-attrs', ({html, dataset, getClass}) => {
-    const data = dataset();
-    const self = getClass();
-    console.log(self.state);
+defineComponent('users-list', ({html, signal, component, dataset, self, useStore }) => {
 
-    return () => html`<div> Название компонета ${data.name.value} </div>`;
-})
+    setTimeout(() => {
+        self.setAttribute('name', 'ivan')
+        console.log(self)
+    }, 2)
 
-defineComponent('example-component', ({signal, computed, html, dataset, effect}) => {
-    
-    const ageValue = computed(() => store.count.value)
-    const users = signal([ {name:'Иван'}  ])
-    const usersCount = computed(() => users.value.length)
-    const addUser = () => {
-        users.value = [...users.value, {name:`Пользователь ${usersCount.value + 1}` }]
-    }
+    const {users, count, addUser} = useStore('users')
 
-    const lastUser = computed(() => {
-        const length = users.value.length;
-        if(length < 1) return 'Нет пользователей'
-        return users.value[length - 1]['name'];
+    const newUser = signal({
+        name:'',
+        birth:'',
     })
 
-    setInterval(() => {
-        //store.setAge( ageValue.value + 1)
-    }, 2000)
-
-    effect(() => 'Пользователь добавлен!');
+    const addNewUser = e => {
+        e.preventDefault();
+        addUser(newUser.value.name, newUser.value.birth)
+        newUser.value.name = '';
+        newUser.value.birth = ''
+    }
 
     return () => html`
-        <h1>Пользователи - ${usersCount.value}</h1>
-        <example-component-attrs data-name="${lastUser.value}" .state=${users.value}></example-component-attrs>
+        <h1>Пользователи - ${count.value}</h1>
+        <br>
         <div>
-            <button onclick=${() => addUser() }>
-                Будет: ${ageValue.value}
-            </button>
+            <h3>Добавить пользователя</h3>
+            <form @submit="${addNewUser}" >
+                <input type="text" placeholder="Имя" required oninput=${(e) => newUser.value.name = e.target.value} >
+                <br>
+                <input type="date" placeholder="Д.р" required onchange=${(e) => newUser.value.birth = e.target.value}>
+                <br>
+                <button type="submit" >Добавить</button>
+            </form>
         </div>
-        <ul>
-            ${users.value.map(user => html`<li>${user.name}</li>`)}
-        </ul>
+
+        <br><br>
+        
+        <table border="1">
+            <tr>
+                <td>Имя</td>
+                <td>Д/Р</td>
+                <td>Возраст</td>
+            </tr>
+            ${users.value.map(user => html`<tr>
+                <td>${user.name}</td>
+                <td>${user.birth}</td>
+                <td>${user.age}</td>
+            </tr>`)}
+        </table>
     `
 })
