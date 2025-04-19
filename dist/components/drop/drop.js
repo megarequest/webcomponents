@@ -1,4 +1,4 @@
-defineComponent('drop-main', ({html, self, onRender}) => {
+defineComponent('drop-main', ({html, self, effect}) => {
 
 	let value = null;
 
@@ -11,7 +11,7 @@ defineComponent('drop-main', ({html, self, onRender}) => {
 		if(trigger?.innerText) trigger.innerText = value;
 	}
 
-	const handeClick = event => {
+	const handleClick = event => {
 
 		const target = event.target;
 		const isSelf = target?.closest('.drop') == self;
@@ -35,9 +35,10 @@ defineComponent('drop-main', ({html, self, onRender}) => {
 	}
 
 
-	onRender(() => {
-		document.addEventListener('click', handeClick)
-	})
+	effect(() => {
+        document.addEventListener('click', handleClick);
+        return () => document.removeEventListener('click', handleClick);
+    });
 
 
 

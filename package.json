@@ -1,7 +1,7 @@
 {
   "scripts": {
-    "build": "webpack",
-    "start": "webpack serve"
+    "dev": "webpack serve --env NODE_ENV=development",
+    "build": "webpack --env NODE_ENV=production"
   },
   "dependencies": {
     "preact": "^10.25.4",
