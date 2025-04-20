@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complement</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="components/drop/drop.css">
+</head>
+<body>
+    <div class="container">
+
+        <form class="filter">
+            <div class="filter-row">
+
+                <drop-component class="drop">
+
+                    <drop-component-trigger class="drop-trigger">
+                        <div class="btn"><span data-render-to="innerHtml">Выберите вариант</span></div>
+                    </drop-component-trigger>
+
+                    <drop-component-container class="drop-container">
+
+                        <drop-component-content class="drop-content">
+
+                            <drop-component-content-header>
+                                <drop-component-filter class="drop-filter" data-by="innerText" data-from=".checkbox span"></drop-component-filter>
+                            </drop-component-content-header>
+
+                            <drop-component-content-body>
+
+                                <div class="drop-item" data-close="false">
+                                    <label class="checkbox">
+                                        <input type="checkbox">
+                                        <span>Только скидочные</span>
+                                    </label>
+                                </div>
+
+                                <div class="drop-item" data-close="false">
+                                    <label class="checkbox">
+                                        <input type="checkbox">
+                                        <span>Только новинки</span>
+                                    </label>
+                                </div>
+
+                            </drop-component-content-body>
+
+                            <drop-component-footer class="drop-footer">
+                                <button type="submit"><span>Применить</span></button>
+                            </drop-component-footer>
+                        </drop-component-content>
+                    </drop-component-container>
+
+                </drop-component>
+            </div>
+
+            <div class="filter-row">
+                <div class="filter-row-title">Размер одежды</div>
+                <div class="filter-row-value">
+                    <select-wrapper>
+                        <select placeholder="Выберите размер">
+                            <option value="xs">Очень маленький</option>
+                            <option value="s">Маленький</option>
+                            <option value="m">Средний</option>
+                            <option value="l">Большой</option>
+                            <option value="xl">Очень большой</option>
+                        </select>
+                    </select-wrapper>
+                </div>
+            </div>
+
+            <div class="filter-row"></div>
+                <div class="filter-row-title">Размер одежды</div>
+                <div class="filter-row-value">
+                    <select-component>
+                        <select-component-value placeholder="Выберите цвет"></select-component-value>
+                        <select placeholder="Выберите размер">
+                            <option value="xs">Очень маленький</option>
+                            <option value="s">Маленький</option>
+                            <option value="m">Средний</option>
+                            <option value="l">Большой</option>
+                            <option value="xl">Очень большой</option>
+                        </select>
+                    </select-wrapper>
+                </div>
+            </div>
+
+        </form>
+       
+
+
+    </div>
+
+
+
+
+    <script src="bundle.js"></script>
+    <script src="script.js"></script>
+
+    <script src="components/drop/drop.js"></script>
+
+
+
+
+
+</body>
+</html>

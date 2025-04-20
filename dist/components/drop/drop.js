@@ -1,4 +1,4 @@
-defineComponent('drop-main', ({html, self, effect}) => {
+defineComponent('drop-component', ({html, self, effect}) => {
 
 	let value = null;
 
@@ -14,33 +14,25 @@ defineComponent('drop-main', ({html, self, effect}) => {
 	const handleClick = event => {
 
 		const target = event.target;
+		if(!target) return;
+
 		const isSelf = target?.closest('.drop') == self;
 		if(!isSelf) return close();
 
 		const isTrigger = target?.closest('.drop-trigger');
-		if(isTrigger) {
-			toggle();
-			return ;
-		}
+		if(isTrigger) return toggle();
 
 		const isItem = target?.closest('.drop-item');
-		if(isItem){
-			setValue(isItem.innerText)
-			if(isItem.dataset?.close != 'false') return close();
-			return;
-		}
-
+		if(isItem && isItem?.dataset?.close == 'true') return close();
 
 		if(!isItem || !isTrigger) return close();
+		
 	}
-
 
 	effect(() => {
         document.addEventListener('click', handleClick);
         return () => document.removeEventListener('click', handleClick);
     });
-
-
 
 	return () => html`<slot></slot>`
 })
