@@ -9,49 +9,48 @@
 </head>
 <body>
     <div class="container">
-        <h3>Обычный список</h3>
-        <drop-main class="drop">
-            <button type="button" class="drop-trigger btn noselect ">
-                <span data-value>Выберите вариант</span>
-                <span class="drop-icon"></span>
-            </button>
-            <div class="drop-container">
-                <div class="drop-filter"></div>
-                <div class="drop-content">
-                    <div value="1" class="drop-item">
-                        <span>Вариант 1</span>
-                    </div>
-                    <div value="2" class="drop-item" data-close="false">
-                        <span>Вариант 2</span>
-                    </div>
-                    <div value="3" class="drop-item" data-close="false">
-                        <span>Вариант 3</span>
-                    </div>
-                </div>
-            </div>
-        </drop-main>
 
 
-        <drop-main class="drop">
-            <button type="button" class="drop-trigger btn noselect ">
-                <span data-value>Выберите еще</span>
-                <span class="drop-icon"></span>
-            </button>
-            <div class="drop-container">
-                <div class="drop-filter"></div>
-                <div class="drop-content">
-                    <div data-value="Вариант 1" class="drop-item">
-                        <span>Вариант 1</span>
-                    </div>
-                    <div data-value="Вариант 2" class="drop-item" data-close="false">
-                        <span>Вариант 2</span>
-                    </div>
-                    <div data-value="Вариант 3" class="drop-item" data-close="false">
-                        <span>Вариант 3</span>
-                    </div>
-                </div>
+        <div class="container-grid">
+            
+            <div class="container-grid-item">
+                <h3>Список пользователей</h3>
+                <users-list></users-list>
+
             </div>
-        </drop-main>
+            <div class="container-grid-item">
+
+                <h3>Обычный список</h3>
+                <drop-main class="drop">
+                    <button type="button" class="drop-trigger btn noselect ">
+                        <span data-value>Выберите вариант</span>
+                        <span class="drop-icon"></span>
+                    </button>
+                    <div class="drop-container">
+                        <div class="drop-filter"></div>
+                        <div class="drop-content">
+                            <div value="1" class="drop-item">
+                                <span>Вариант 1</span>
+                            </div>
+                            <div value="2" class="drop-item" data-close="false">
+                                <span>Вариант 2</span>
+                            </div>
+                            <div value="3" class="drop-item" data-close="false">
+                                <span>Вариант 3</span>
+                            </div>
+                        </div>
+                    </div>
+                </drop-main>
+
+
+            </div>
+            <div class="container-grid-item"></div>
+
+        </div>
+
+
+       
+
 
     </div>
 

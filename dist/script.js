@@ -34,7 +34,7 @@ const usersStore = defineStore('users', ({signal, computed, effect}) => {
     };
 })
 
-defineComponent('users-list', ({html, signal, component, dataset, self, useStore }) => {
+defineComponent('users-list', ({html, signal, self, useStore }) => {
 
     setTimeout(() => {
         self.setAttribute('name', 'ivan')
@@ -56,14 +56,14 @@ defineComponent('users-list', ({html, signal, component, dataset, self, useStore
     }
 
     return () => html`
-        <h1>Пользователи - ${count.value}</h1>
+        <div>Всего - ${count.value}</h1>
         <br>
         <div>
             <h3>Добавить пользователя</h3>
             <form @submit="${addNewUser}" >
-                <input type="text" placeholder="Имя" required oninput=${(e) => newUser.value.name = e.target.value} >
+                <input type="text" placeholder="Имя" class="input" required oninput=${(e) => newUser.value.name = e.target.value} >
                 <br>
-                <input type="date" placeholder="Д.р" required onchange=${(e) => newUser.value.birth = e.target.value}>
+                <input type="date" placeholder="Д.р" class="input" required onchange=${(e) => newUser.value.birth = e.target.value}>
                 <br>
                 <button type="submit" >Добавить</button>
             </form>
